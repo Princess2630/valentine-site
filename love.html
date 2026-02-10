@@ -2,88 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Love Letter 💖</title>
+  <title>For You ❤️</title>
   <style>
     body {
-      margin: 0;
+      background: linear-gradient(135deg,#fad0c4,#ffd1dc);
       font-family: 'Segoe UI', sans-serif;
-      background: url('WhatsApp Image 2026-02-10 at 18.38.23.jpeg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #fff;
-      text-align: center;
-      overflow: hidden;
+      color:#333;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      padding:20px;
     }
-
-    .card {
-      background: rgba(0,0,0,0.4);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      max-width: 500px;
-      width: 90%;
-      z-index: 2;
+    .letter {
+      background:white;
+      padding:40px;
+      border-radius:20px;
+      max-width:500px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.2);
     }
-
-    canvas {
-      position: fixed;
-      top:0; left:0;
-      pointer-events:none;
-      z-index:1;
-    }
+    h1{color:#ff4d6d;}
   </style>
 </head>
 <body>
 
-<canvas id="confetti"></canvas>
+<div class="letter">
+  <h1>My Love ❤️</h1>
+  <p>
+    From the moment you came into my life,  
+    everything felt lighter, warmer, and better.  
+    You make me smile without trying.  
+    You make my bad days disappear.  
+    And loving you is the easiest thing I’ve ever done.
+  </p>
 
-<div class="card">
-  <h1>💌 To My Valentine 💌</h1>
-  <p>Every moment with you is magic.<br>
-     I can’t imagine life without your smile.<br>
-     You make my heart sing, laugh, and soar.<br>
-     I hope today is as special as you are.</p>
-  <h2>Forever yours, Tinotenda ❤️</h2>
+  <p>
+    Thank you for being you.  
+    Thank you for choosing me.  
+    And thank you for being my Valentine 💖
+  </p>
+
+  <h2>Forever yours 😌❤️ Tinotenda</h2>
 </div>
-
-<script>
-/* CONFETTI */
-const canvas = document.getElementById('confetti');
-const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; 
-canvas.height = innerHeight;
-let confetti = [];
-
-function startConfetti() {
-  for(let i=0;i<180;i++){
-    confetti.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      r: Math.random()*6+4,
-      color:`hsl(${Math.random()*360},100%,60%)`
-    });
-  }
-  animate();
-}
-
-function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  confetti.forEach((c)=>{
-    ctx.beginPath();
-    ctx.fillStyle=c.color;
-    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
-    ctx.fill();
-    c.y+=3;
-    if(c.y>canvas.height) c.y=0;
-  });
-  requestAnimationFrame(animate);
-}
-
-startConfetti();
-</script>
 
 </body>
 </html>
