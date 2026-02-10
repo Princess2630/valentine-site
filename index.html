@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.25);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 90%;
+      z-index: 2;
+    }
+
+    button {
+      font-size: 1.1em;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    #yes { background:#ff4d6d;color:white;}
+    #no { background:#fff;color:#333; position:relative;}
+
+    canvas {
+      position: fixed;
+      top:0; left:0;
+      pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+  <h1>Hey Love 💕</h1>
+  <p>I made this just for you…</p>
+  <h2>Will you be my Valentine? 💌</h2>
+  <button id="yes">YES 😍</button>
+  <button id="no">No 🙃</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+noBtn.onmouseover = () => {
+  noBtn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+};
+
+document.getElementById("yes").onclick = () => {
+  startConfetti();
+  setTimeout(() => window.location.href = "love.html", 3000);
+};
+
+// CONFETTI
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+canvas.width = innerWidth; canvas.height = innerHeight;
+let confetti = [];
+
+function startConfetti() {
+  for(let i=0;i<150;i++){
+    confetti.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*6+4,
+      d: Math.random()*canvas.height,
+      color:`hsl(${Math.random()*360},100%,50%)`
+    });
+  }
+  animate();
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confetti.forEach((c,i)=>{
+    ctx.beginPath();
+    ctx.fillStyle=c.color;
+    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+    ctx.fill();
+    c.y+=3;
+    if(c.y>canvas.height) c.y=0;
+  });
+  requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>
