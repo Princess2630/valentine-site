@@ -46,16 +46,20 @@
     }
 
     iframe {
-      display:none;
+      position:absolute;
+      width:0;
+      height:0;
+      border:0;
     }
   </style>
 </head>
 <body>
 
-<!-- YouTube player (hidden) -->
-<iframe id="player" width="0" height="0"
-  src="https://www.youtube.com/embed/5r2HnKcL4iU?enablejsapi=1&autoplay=0"
-  frameborder="0" allow="autoplay"></iframe>
+<!-- YouTube player (muted autoplay, then unmuted on YES) -->
+<iframe id="ytplayer"
+  src="https://www.youtube.com/embed/5r2HnKcL4iU?autoplay=1&mute=1&loop=1&playlist=5r2HnKcL4iU"
+  allow="autoplay">
+</iframe>
 
 <canvas id="confetti"></canvas>
 
@@ -82,13 +86,6 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* YES CLICK */
-document.getElementById("yes").onclick = () => {
-  playMusic();
-  startConfetti();
-  setTimeout(() => window.location.href = "love.html", 3000);
-};
-
 /* CONFETTI */
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
@@ -102,7 +99,6 @@ function startConfetti() {
       x: Math.random()*canvas.width,
       y: Math.random()*canvas.height,
       r: Math.random()*6+4,
-      d: Math.random()*canvas.height,
       color:`hsl(${Math.random()*360},100%,60%)`
     });
   }
@@ -122,24 +118,15 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-/* YOUTUBE MUSIC CONTROL */
-let player;
-function playMusic() {
-  if (!player) {
-    player = new YT.Player('player', {
-      events: {
-        'onReady': event => event.target.playVideo()
-      }
-    });
-  } else {
-    player.playVideo();
-  }
-}
+/* YES CLICK */
+document.getElementById("yes").onclick = () => {
+  // Unmute YouTube iframe
+  const iframe = document.getElementById("ytplayer");
+  iframe.src = "https://www.youtube.com/embed/5r2HnKcL4iU?autoplay=1&mute=0&loop=1&playlist=5r2HnKcL4iU";
 
-// Load YouTube API
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-document.body.appendChild(tag);
+  startConfetti();
+  setTimeout(() => window.location.href = "love.html", 3000);
+};
 </script>
 
 </body>
