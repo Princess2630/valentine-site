@@ -4,18 +4,33 @@
   <meta charset="UTF-8">
   <title>Be My Valentine 💖</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background: url('WhatsApp Image 2026-02-10 at 18.38.23.jpeg') no-repeat center center fixed;
-      background-size: contain; /* perfectly zooms to fit screen */
+      overflow: hidden;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       color: #fff;
       text-align: center;
-      overflow: hidden;
+      position: relative;
+      background-color: #ff758c; /* fallback if image not loaded */
+    }
+
+    /* Background image using img tag */
+    #bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* keeps the full image visible */
+      z-index: 0;
     }
 
     .card {
@@ -24,8 +39,8 @@
       border-radius: 20px;
       max-width: 400px;
       width: 90%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       z-index: 2;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
     button {
@@ -49,6 +64,9 @@
   </style>
 </head>
 <body>
+
+<!-- Background image -->
+<img id="bg-image" src="WhatsApp Image 2026-02-10 at 18.38.23.jpeg" alt="Valentine">
 
 <canvas id="confetti"></canvas>
 
@@ -114,17 +132,16 @@ function animate() {
 const music = document.getElementById('music');
 
 document.getElementById("yes").onclick = () => {
-  // Start music
+  // Play music
   music.play().catch(() => console.log("Music failed to play — user interaction required"));
 
   // Start confetti
   startConfetti();
 
-  // Redirect to love letter after 3 seconds
+  // Redirect to love.html after 3 seconds
   setTimeout(() => window.location.href = "love.html", 3000);
 };
 </script>
 
 </body>
 </html>
-
