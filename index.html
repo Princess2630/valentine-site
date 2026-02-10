@@ -19,17 +19,17 @@
       color: #fff;
       text-align: center;
       position: relative;
-      background-color: #ff758c; /* fallback if image not loaded */
+      background-color: #ff758c; /* fallback */
     }
 
-    /* Background image using img tag */
+    /* Background image */
     #bg-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* keeps the full image visible */
+      object-fit: contain; /* shows whole image */
       z-index: 0;
     }
 
@@ -76,9 +76,10 @@
   <button id="no">No 🙃</button>
 </div>
 
-<!-- Music -->
-<audio id="music">
-  <source src="ordinary.mp3" type="audio/mpeg">
+<!-- Music (MPEG file) -->
+<audio id="music" preload="auto">
+  <source src="ordinary.mpeg" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
 <script>
@@ -133,7 +134,7 @@ const music = document.getElementById('music');
 
 document.getElementById("yes").onclick = () => {
   // Play music
-  music.play().catch(() => console.log("Music failed to play — user interaction required"));
+  music.play().catch(() => console.log("Music failed to play — browser may require user interaction"));
 
   // Start confetti
   startConfetti();
@@ -145,8 +146,3 @@ document.getElementById("yes").onclick = () => {
 
 </body>
 </html>
-
-
-
-
-
