@@ -7,30 +7,33 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #ff758c; /* fallback color if image fails */
+      background: #ff758c; /* fallback color */
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       color: #fff;
       text-align: center;
       overflow: hidden;
+      padding: 20px;
     }
 
     .card {
-      background: rgba(0,0,0,0.4);
-      padding: 40px;
+      background: rgba(0,0,0,0.5);
+      padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       max-width: 500px;
-      width: 90%;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       z-index: 2;
     }
 
-    img {
-      width:100%;
-      border-radius:15px;
-      margin:20px 0;
+    .card img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain; /* ensures image is not zoomed/cropped */
+      border-radius: 15px;
+      margin: 20px 0;
     }
 
     canvas {
@@ -38,6 +41,12 @@
       top:0; left:0;
       pointer-events:none;
       z-index:1;
+    }
+
+    .signature {
+      margin-top: 20px;
+      font-size: 1.1em;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -48,23 +57,28 @@
 <div class="card">
   <h1>💌 To My Valentine 💌</h1>
 
-  <!-- Your image -->
+  <!-- Image -->
   <img src="WhatsApp Image 2026-02-10 at 18.38.23.jpeg" alt="Us together">
 
-  <p>Every moment with you is magic.<br>
-     I can’t imagine life without your smile.<br>
-     You make my heart sing, laugh, and soar.<br>
-     I hope today is as special as you are.</p>
+  <p>
+    Every moment with you is magic.<br>
+    I can’t imagine life without your smile.<br>
+    You make my heart sing, laugh, and soar.<br>
+    I hope today is as special as you are.
+  </p>
 
-  <h2>Forever yours, Tinotenda ❤️</h2>
+  <h2 class="signature">
+    Forever yours,<br>
+    Tinotenda
+  </h2>
 </div>
 
 <script>
 /* CONFETTI */
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; 
-canvas.height = innerHeight;
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight;
 let confetti = [];
 
 function startConfetti() {
