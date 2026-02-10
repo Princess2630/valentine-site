@@ -42,14 +42,20 @@
       position: fixed;
       top:0; left:0;
       pointer-events:none;
+      z-index:1;
+    }
+
+    iframe {
+      display:none;
     }
   </style>
 </head>
 <body>
 
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-</audio>
+<!-- YouTube player (hidden) -->
+<iframe id="player" width="0" height="0"
+  src="https://www.youtube.com/embed/5r2HnKcL4iU?enablejsapi=1&autoplay=0"
+  frameborder="0" allow="autoplay"></iframe>
 
 <canvas id="confetti"></canvas>
 
@@ -62,30 +68,42 @@
 </div>
 
 <script>
+/* RUNAWAY NO BUTTON */
 const noBtn = document.getElementById("no");
-noBtn.onmouseover = () => {
-  noBtn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
-};
 
+function moveNo() {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.position = "fixed";
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+}
+
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+/* YES CLICK */
 document.getElementById("yes").onclick = () => {
+  playMusic();
   startConfetti();
   setTimeout(() => window.location.href = "love.html", 3000);
 };
 
-// CONFETTI
+/* CONFETTI */
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; canvas.height = innerHeight;
+canvas.width = innerWidth; 
+canvas.height = innerHeight;
 let confetti = [];
 
 function startConfetti() {
-  for(let i=0;i<150;i++){
+  for(let i=0;i<180;i++){
     confetti.push({
       x: Math.random()*canvas.width,
       y: Math.random()*canvas.height,
       r: Math.random()*6+4,
       d: Math.random()*canvas.height,
-      color:`hsl(${Math.random()*360},100%,50%)`
+      color:`hsl(${Math.random()*360},100%,60%)`
     });
   }
   animate();
@@ -93,7 +111,7 @@ function startConfetti() {
 
 function animate() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  confetti.forEach((c,i)=>{
+  confetti.forEach((c)=>{
     ctx.beginPath();
     ctx.fillStyle=c.color;
     ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
@@ -103,6 +121,25 @@ function animate() {
   });
   requestAnimationFrame(animate);
 }
+
+/* YOUTUBE MUSIC CONTROL */
+let player;
+function playMusic() {
+  if (!player) {
+    player = new YT.Player('player', {
+      events: {
+        'onReady': event => event.target.playVideo()
+      }
+    });
+  } else {
+    player.playVideo();
+  }
+}
+
+// Load YouTube API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
 </script>
 
 </body>
