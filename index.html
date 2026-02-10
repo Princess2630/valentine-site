@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Be My Valentine 💖</title>
   <style>
+    /* Full background image */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      background: url('WhatsApp Image 2026-02-10 at 18.38.23.jpeg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,19 +20,13 @@
     }
 
     .card {
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.4);
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       max-width: 400px;
       width: 90%;
       z-index: 2;
-    }
-
-    img {
-      width:100%;
-      border-radius:15px;
-      margin:20px 0;
     }
 
     button {
@@ -39,6 +35,7 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
+      margin: 10px;
     }
 
     #yes { background:#ff4d6d;color:white;}
@@ -50,36 +47,22 @@
       pointer-events:none;
       z-index:1;
     }
-
-    iframe {
-      position:absolute;
-      width:0;
-      height:0;
-      border:0;
-    }
   </style>
 </head>
 <body>
 
-<!-- YouTube player (muted autoplay, then unmuted on YES) -->
-<iframe id="ytplayer"
-  src="https://www.youtube.com/embed/5r2HnKcL4iU?autoplay=1&mute=1&loop=1&playlist=5r2HnKcL4iU"
-  allow="autoplay">
-</iframe>
-
 <canvas id="confetti"></canvas>
 
 <div class="card">
-  <h1>Hey Love 💕</h1>
-  <p>I made this just for you…</p>
-  <h2>Will you be my Valentine? 💌</h2>
-
-  <!-- Added image -->
-  <img src="WhatsApp Image 2026-02-10 at 18.38.23.jpeg" alt="Us together">
-
+  <h1>Be my Valentine 💌</h1>
   <button id="yes">YES 😍</button>
   <button id="no">No 🙃</button>
 </div>
+
+<!-- Music -->
+<audio id="music">
+  <source src="https://www.youtube.com/watch?v=u2ah9tWTkmk&list=RDu2ah9tWTkmk&start_radio=1" type="audio/mpeg">
+</audio>
 
 <script>
 /* RUNAWAY NO BUTTON */
@@ -129,10 +112,11 @@ function animate() {
 }
 
 /* YES CLICK */
+const music = document.getElementById('music');
+
 document.getElementById("yes").onclick = () => {
-  // Unmute YouTube iframe
-  const iframe = document.getElementById("ytplayer");
-  iframe.src = "https://www.youtube.com/embed/5r2HnKcL4iU?autoplay=1&mute=0&loop=1&playlist=5r2HnKcL4iU";
+  // Start music
+  music.play().catch(() => console.log("Music failed to play — browser may require interaction"));
 
   startConfetti();
   setTimeout(() => window.location.href = "love.html", 3000);
