@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <title>Be My Valentine 💖</title>
   <style>
-    /* Full background image */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: url('WhatsApp Image 2026-02-10 at 18.38.23.jpeg') no-repeat center center fixed;
-      background-size: cover;
+      background-size: cover; /* perfectly zooms to fit screen */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,12 +19,12 @@
     }
 
     .card {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       max-width: 400px;
       width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       z-index: 2;
     }
 
@@ -57,7 +56,6 @@
   <h1>Be my Valentine 💌</h1>
   <button id="yes">YES 😍</button>
   <button id="no">No 🙃</button>
-  <p style="margin-top:15px; font-size:0.9em;">— Tinotenda ❤️</p>
 </div>
 
 <!-- Music -->
@@ -83,8 +81,8 @@ noBtn.addEventListener("touchstart", moveNo);
 /* CONFETTI */
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; 
-canvas.height = innerHeight;
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight;
 let confetti = [];
 
 function startConfetti() {
@@ -116,8 +114,13 @@ function animate() {
 const music = document.getElementById('music');
 
 document.getElementById("yes").onclick = () => {
+  // Start music
   music.play().catch(() => console.log("Music failed to play — user interaction required"));
+
+  // Start confetti
   startConfetti();
+
+  // Redirect to love letter after 3 seconds
   setTimeout(() => window.location.href = "love.html", 3000);
 };
 </script>
